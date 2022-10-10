@@ -37,5 +37,8 @@ class ClientsController extends Controller
     }
     public function actionFilter()
     {
+        $params = (new Request())->getParams()['params'];
+        $clients = (new ClientRepository())->getAllWhere($params);
+        echo json_encode($clients, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 }

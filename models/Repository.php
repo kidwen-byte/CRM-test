@@ -33,17 +33,10 @@ abstract class Repository
         return $entity->id;
     }
 
-    public function getOneWhere($name, $value) {
+    public function getAllWhere($params) {
         $tableName = $this->getTableName();
-        $sql = "SELECT * FROM {$tableName} WHERE `{$name}`=:value";
-        return Db::getInstance()->queryOneObject($sql, ['value' => $value], $this->getEntityClass());
-    }
-
-    public function getOne($id) {
-        $tableName = $this->getTableName();
-        $sql = "SELECT * FROM {$tableName} WHERE id = :id";
-        //return Db::getInstance()->queryOne($sql, ['id' => $id]);
-        return Db::getInstance()->queryOneObject($sql, ['id' => $id], $this->getEntityClass());
+        $sql = "SELECT `{$params}` FROM {$tableName}";
+        return Db::getInstance()->queryAll($sql);
     }
 
     public function getAll() {

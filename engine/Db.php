@@ -47,29 +47,6 @@ class Db
             $this->config['charset']
         );
     }
-    public function queryOne($sql, $params = [])
-    {
-        return $this->query($sql, $params)->fetch();
-
-    }
-
-    public function queryOneObject($sql, $params, $class)
-    {
-
-            $STH = $this->query($sql, $params);
-
-            $STH->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
-
-            $obj = $STH->fetch();
-
-            if (!$obj) {
-                throw new \Exception("Объект не найден", 404);
-            }
-
-
-        return $obj;
-
-    }
 
     private function query($sql, $params)
     {
