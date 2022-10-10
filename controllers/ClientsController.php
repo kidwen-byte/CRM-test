@@ -10,7 +10,7 @@ class ClientsController extends Controller
 {
     public function actionIndex()
     {
-        $clients = (new ClientRepository())->getAll();
+        $clients = (new ClientRepository())->getAll(); //Получаем из БД все запись клиентов 
         echo $this->render('clients', [
             'clients' => $clients
         ]);
@@ -18,13 +18,13 @@ class ClientsController extends Controller
 
     public function actionAdd()
     {
-        $name = (new Request())->getParams()['name'];
-        $email = (new Request())->getParams()['email'];
-        $tel = (new Request())->getParams()['tel'];
+        $name = (new Request())->getParams()['name']; //Получаем данные из input name (getParams находится в engine/Request.php)
+        $email = (new Request())->getParams()['email']; //Получаем данные из input email
+        $tel = (new Request())->getParams()['tel']; //Получаем данные из input tel
 
-        if (preg_match("/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/", $tel)) {
-            $client = new Clients($name,  $email, $tel);
-            $save = (new ClientRepository())->insert($client);
+        if (preg_match("/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/", $tel)) { //Валидация номера телефона
+            $client = new Clients($name, $email, $tel); //Создаем хранилище
+            $save = (new ClientRepository())->insert($client); //Делаем insert (insert находится в models/Repository.php)
             if ($save) {
                 $response = 'Клиент успешно добавлен';
             } else {
@@ -33,7 +33,7 @@ class ClientsController extends Controller
         } else {
             $response = 'Неверный формат телефона';
         }
-        echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE); //Возвращаем ответ на фронт
     }
     public function actionFilter()
     {

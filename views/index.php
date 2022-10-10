@@ -3,7 +3,7 @@
 <input type="text" id="email" placeholder="Email">
 <input type="text" id="tel" placeholder="Телефон +7999999">
 <button class="button-add">Сохранить</button>
-<div class="message"></div>
+<p class="message"></p>
 
 <script>
     let button_add = document.querySelector('.button-add');
